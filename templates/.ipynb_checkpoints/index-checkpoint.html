@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Spam Classifier</title>
+</head>
+<body>
+    <h1>Détecteur de Spam</h1>
+    <form method="post" action="/predict">
+        <textarea name="email_text" rows="5" cols="50" placeholder="Entrez votre email ici..."></textarea><br>
+        <input type="submit" value="Vérifier">
+    </form>
+
+    {% if prediction is not none %}
+        <h2>Résultat : {{ 'Spam' if prediction==1 else 'Ham' }}</h2>
+    {% endif %}
+</body>
+</html>
