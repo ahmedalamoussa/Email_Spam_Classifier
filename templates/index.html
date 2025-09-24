@@ -2,16 +2,79 @@
 <html>
 <head>
     <title>Spam Classifier</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background-color: #fff;
+            padding: 30px 40px;
+            border-radius: 10px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            text-align: center;
+            width: 500px;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+
+        textarea {
+            width: 100%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 16px;
+            resize: vertical;
+        }
+
+        input[type="submit"] {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover {
+            background-color: #0056b3;
+        }
+
+        .result {
+            margin-top: 20px;
+            font-size: 20px;
+            font-weight: bold;
+            color: #e74c3c; /* rouge pour Spam */
+        }
+
+        .result.ham {
+            color: #2ecc71; /* vert pour Ham */
+        }
+    </style>
 </head>
 <body>
-    <h1>Détecteur de Spam</h1>
-    <form method="post" action="/predict">
-        <textarea name="email_text" rows="5" cols="50" placeholder="Entrez votre email ici..."></textarea><br>
-        <input type="submit" value="Vérifier">
-    </form>
+    <div class="container">
+        <h1>Classificateur de Spam</h1>
+        <form method="POST" action="/predict">
+            <textarea name="email" rows="6" placeholder="Entrez votre email ici..."></textarea><br>
+            <input type="submit" value="Classer">
+        </form>
 
-    {% if prediction is not none %}
-        <h2>Résultat : {{ 'Spam' if prediction==1 else 'Ham' }}</h2>
-    {% endif %}
+        {% if prediction %}
+            <div class="result {% if prediction == 'Ham' %}ham{% endif %}">
+                Résultat : {{ prediction }}
+            </div>
+        {% endif %}
+    </div>
 </body>
 </html>
